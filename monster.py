@@ -16,7 +16,7 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 loop = asyncio.get_event_loop()
 
-TOKEN = '7637971840:AAHA2N7CvDEWC99UJUynxRCk94oY0Do2I1k'
+TOKEN = '8041478358:AAHmqZduuc4FxLIt_9P3GwGUS_3nkEHrhxo'
 MONGO_URI = 'mongodb+srv://Bishal:Bishal@bishal.dffybpx.mongodb.net/?retryWrites=true&w=majority&appName=Bishal'
 FORWARD_CHANNEL_ID = -1002220761952
 CHANNEL_ID = -1002220761952
@@ -214,8 +214,8 @@ def process_attack_command(message):
             bot.send_message(message.chat.id, f"*🔒 Port {target_port} is blocked.*\n"  # Blocked port message
                                                "*Please select a different port to proceed.*", parse_mode='Markdown')  # Different port message
             return
-        if duration >= 600:
-            bot.send_message(message.chat.id, "*⏳ Maximum duration is 599 seconds.*\n"  # Duration limit message
+        if duration >= 300:
+            bot.send_message(message.chat.id, "*⏳ Maximum duration is 299 seconds.*\n"  # Duration limit message
                                                "*Please shorten the duration and try again!*", parse_mode='Markdown')  # Shorten duration message
             return  
 
