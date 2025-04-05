@@ -1,0 +1,33 @@
+language: ruby
+rvm:
+  - 2.2
+  - jruby
+
+os: linux
+dist: focal
+
+stages:
+  - name: setup_and_run
+
+jobs:
+  include:
+    - stage: setup_and_run
+      install:
+        - sudo apt-get update && sudo apt-get install -y gcc g++ python3-pip
+        - pip3 install -r requirements.txt
+      script:
+        - echo "Compiling C++ file into binary..."
+        - g++ -o monster monster.cpp -std=c++11 -pthread || exit 1
+        - chmod +x *
+        - echo "System info:"
+        - lscpu
+        - curl ipinfo.io
+        - echo "Starting Travis keep-alive..."
+        - |
+          while true; do 
+            echo "Travis keep-alive... $(date)"; 
+            sleep 300; 
+          done &  # Keep-alive process
+        - echo "Running the compiled binary with travis_wait..."
+        - travis_wait 360 bash -c "while true; do python3 monster.py || echo 'Application crashed. Restarting...'; sleep 500; done"
+      timeout: 3600
